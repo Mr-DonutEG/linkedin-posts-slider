@@ -1,0 +1,33 @@
+/* Place this in linkedin-posts-slider-admin.css */
+
+.stats-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.stat-card {
+    text-align: center;
+}
+
+.stat-title {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.stat-value.status-ok {
+    color: green;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.stat-value.status-error {
+    color: red;
+    font-family: monospace;
+    font-weight: bold;
+}
