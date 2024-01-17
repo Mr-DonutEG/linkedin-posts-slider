@@ -1,41 +1,39 @@
 <?php
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
-    exit;
+  exit;
 }
 
 // Function to create and prepopulate the custom table
 function linkedin_posts_slider_activate()
 {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'lps_synced_posts';
-    $charset_collate = $wpdb->get_charset_collate();
+  global $wpdb;
+  $table_name = $wpdb->prefix . 'lps_synced_posts';
+  $charset_collate = $wpdb->get_charset_collate();
 
-    // Step 1: Create custom WordPress table
-    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
-    id mediumint(9) NOT NULL AUTO_INCREMENT,
-    urn text NOT NULL,
-    author text NOT NULL,
-    username text NOT NULL,
-    age text NOT NULL,
-    profilePicture text NOT NULL,
-    copy text NOT NULL,
-    images text NOT NULL,
-    reactions int NOT NULL,
-    comments text NOT NULL,
-    synced boolean NOT NULL,
-    published boolean NOT NULL,
-    post_order int NOT NULL,
-    PRIMARY KEY (id)
+  // Create custom WordPress table with post_order defaulting to the ID
+  $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        urn text NOT NULL,
+        author text NOT NULL,
+        username text NOT NULL,
+        age text NOT NULL,
+        profilePicture text NOT NULL,
+        copy text NOT NULL,
+        images text NOT NULL,
+        reactions int NOT NULL,
+        comments text NOT NULL,
+        synced boolean NOT NULL,
+        published boolean NOT NULL,
+        post_order int NOT NULL DEFAULT 0,
+        PRIMARY KEY (id)
     ) $charset_collate;";
 
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
+  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+  dbDelta($sql);
 
-    // Check if the table was just created and prepopulate it
-    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
-        // Your JSON data for prepopulating the table
-        $jsonData = '{
+  // Decode the JSON data for prepopulating the table
+  $jsonData = '{
             "results": [
     {
       "URN": [
@@ -257,82 +255,91 @@ function linkedin_posts_slider_activate()
   ]
         }';
 
-        // Decode the JSON data
-        $decodedData = json_decode($jsonData, true);
+  // Decode the JSON data
+  $decodedData = json_decode($jsonData, true);
 
-        // Loop through each item in the JSON data
-        foreach ($decodedData['results'] as $item) {
-            // Prepare data for insertion
-            $insertData = array(
-                'urn' => $item['URN'][0],
-                'author' => $item['author'][0],
-                'username' => $item['username'][0],
-                'age' => $item['age'][0],
-                'profilePicture' => $item['profilePicture'][0],
-                'copy' => $item['copy'][0],
-                'images' => maybe_serialize($item['images']),
-                'reactions' => intval($item['reactions'][0]),
-                'comments' => $item['comments'][0],
-                'synced' => 1, // Assuming the posts are initially marked as synced
-                'published' => 1, // Assuming the posts are initially published
-                'post_order' => 0 // Default post order
-            );
+  foreach ($decodedData['results'] as $item) {
+    // Check if a post with the same URN already exists
+    $existing_post = $wpdb->get_var($wpdb->prepare("SELECT id FROM $table_name WHERE urn = %s", $item['URN'][0]));
 
-            // Insert data into the database
-            $wpdb->insert($table_name, $insertData);
-        }
-    }
+    // If the post does not exist, insert it
+    if (!$existing_post) {
+      $insertData = array(
+        'urn' => $item['URN'][0],
+        'author' => $item['author'][0],
+        'username' => $item['username'][0],
+        'age' => $item['age'][0],
+        'profilePicture' => $item['profilePicture'][0],
+        'copy' => $item['copy'][0],
+        'images' => maybe_serialize($item['images']),
+        'reactions' => intval($item['reactions'][0]),
+        'comments' => $item['comments'][0],
+        'synced' => 1, // Assuming the posts are initially marked as synced
+        'published' => 1, // Assuming the posts are initially published
+        'post_order' => 0 // Default post order (will be updated to the ID after insert)
+      );
 
-    // Step 2: Create and set default scrapper settings
-    $default_settings =
-        array(
-            'linkedin_company_url' => 'https://www.linkedin.com/company/alpine-laser/',
-            'linkedin_scrapper_status' => 'OK',
-            'linkedin_scrapper_last_update' => 'Not available',
-            'linkedin_scrapper_endpoint' => 'https://scrape-js.onrender.com/scrape',
-            'linkedin_scrapper_full_post_selector' => 'li.mb-1',
-            'linkedin_scrapper_full_selectors_array' => [
-                'article[data-activity-urn]',
-                'article[data-activity-urn]',
-                'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-image"] img',
-                'time',
-                'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-name"]',
-                'p[data-test-id="main-feed-activity-card__commentary"]',
-                'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-reactions"]',
-                'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-comments"]',
-                'ul[data-test-id="feed-images-content"] img'
-            ],
-            'linkedin_scrapper_full_attributes_array' => '["data-activity-urn", "src", "innerText", "innerText", "innerText", "innerText", "innerText", "src"]',
-            'linkedin_scrapper_full_names_array' => '["URN", "profilePicture", "age", "author", "copy", "reactions", "comments", "images"]'
-            // Add other settings as needed
-        );
-    foreach ($default_settings as $setting_name => $default_value) {
-        if (false === get_option($setting_name)) {
-            add_option($setting_name, $default_value);
-        }
+      $wpdb->insert($table_name, $insertData);
+
+      // Update post_order to match the ID
+      $wpdb->update(
+        $table_name,
+        array('post_order' => $wpdb->insert_id),
+        array('id' => $wpdb->insert_id)
+      );
     }
-    if (!wp_next_scheduled('linkedin_posts_slider_cron_job')) {
-        wp_schedule_event(time(), 'daily', 'linkedin_posts_slider_cron_job');
+  }
+
+  // Step 2: Create and set default scrapper settings
+  $default_settings =
+    array(
+      'linkedin_company_url' => 'https://www.linkedin.com/company/alpine-laser/',
+      'linkedin_scrapper_status' => 'OK',
+      'linkedin_scrapper_last_update' => 'Not available',
+      'linkedin_scrapper_endpoint' => 'https://scrape-js.onrender.com/scrape',
+      'linkedin_scrapper_full_post_selector' => 'li.mb-1',
+      'linkedin_scrapper_full_selectors_array' => [
+        'article[data-activity-urn]',
+        'article[data-activity-urn]',
+        'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-image"] img',
+        'time',
+        'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-name"]',
+        'p[data-test-id="main-feed-activity-card__commentary"]',
+        'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-reactions"]',
+        'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-comments"]',
+        'ul[data-test-id="feed-images-content"] img'
+      ],
+      'linkedin_scrapper_full_attributes_array' => '["data-activity-urn", "src", "innerText", "innerText", "innerText", "innerText", "innerText", "src"]',
+      'linkedin_scrapper_full_names_array' => '["URN", "profilePicture", "age", "author", "copy", "reactions", "comments", "images"]'
+      // Add other settings as needed
+    );
+  foreach ($default_settings as $setting_name => $default_value) {
+    if (false === get_option($setting_name)) {
+      add_option($setting_name, $default_value);
     }
+  }
+  if (!wp_next_scheduled('linkedin_posts_slider_cron_job')) {
+    wp_schedule_event(time(), 'daily', 'linkedin_posts_slider_cron_job');
+  }
 }
 
 // Function to handle deactivation
 function linkedin_posts_slider_deactivate()
 {
-    // Your deactivation code here (if needed)
-    // For example: wp_clear_scheduled_hook('your_scheduled_event');
-    // Clear the scheduled hook upon deactivation
-    wp_clear_scheduled_hook('linkedin_posts_slider_cron_job');
+  // Your deactivation code here (if needed)
+  // For example: wp_clear_scheduled_hook('your_scheduled_event');
+  // Clear the scheduled hook upon deactivation
+  wp_clear_scheduled_hook('linkedin_posts_slider_cron_job');
 }
 
 // Function to set the activation hook
 function linkedin_posts_slider_set_activation_hook($main_file_path)
 {
-    register_activation_hook($main_file_path, 'linkedin_posts_slider_activate');
+  register_activation_hook($main_file_path, 'linkedin_posts_slider_activate');
 }
 
 // Function to set the deactivation hook
 function linkedin_posts_slider_set_deactivation_hook($main_file_path)
 {
-    register_deactivation_hook($main_file_path, 'linkedin_posts_slider_deactivate');
+  register_deactivation_hook($main_file_path, 'linkedin_posts_slider_deactivate');
 }
