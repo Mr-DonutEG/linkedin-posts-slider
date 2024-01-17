@@ -60,15 +60,16 @@ jQuery(document).ready(function ($) {
     function handleUpDownButtonClick() {
         let button = $(this);
         let id = button.closest('tr').find('.row-id').text();
-        let action = button.hasClass('up-button') ? 'move_up' : 'move_down';
+        let action = button.hasClass('up-button') ? 'up' : 'down';
 
         $.ajax({
             url: my_ajax_object.ajax_url,
             type: 'POST',
             data: {
-                action: action,
+                action: 'move_post',
                 id: id,
-                // nonce: my_ajax_object.move_post_nonce // Uncomment if nonce is used
+                direction: action,
+                //nonce: my_ajax_object.move_post_nonce // Add nonce for security
             },
             success: (response) => {
                 if (response.success) {
@@ -82,7 +83,6 @@ jQuery(document).ready(function ($) {
             }
         });
     }
-
 
     // Event binding for the delete button
     $('.delete-button').on('click', handleDeleteButton);

@@ -153,6 +153,12 @@ function move_post()
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'lps_synced_posts';
 
+	// Check for nonce for security
+	//if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'move_post_nonce')) {
+	//	wp_send_json_error('Nonce verification failed');
+	//	return;
+	//}
+
 	// Check if necessary data is set in the AJAX request
 	if (!isset($_POST['id']) || !isset($_POST['direction'])) {
 		wp_send_json_error('No data received');
@@ -165,34 +171,23 @@ function move_post()
 
 	// Fetch current post_order and IDs
 	$rows = $wpdb->get_results("SELECT id, post_order FROM $table_name ORDER BY post_order ASC", ARRAY_A);
-	$current_index = array_search($id, array_column($rows, 'id'));
+	$order_map = wp_list_pluck($rows, 'post_order', 'id');
+	$current_order = $order_map[$id];
 
-	if ($current_index !== false && (($direction === 'up' && $current_index > 0) || ($direction === 'down' && $current_index < count($rows) - 1))) {
-		$swap_index = $direction === 'up' ? $current_index - 1 : $current_index + 1;
+	// Determine new order
+	$new_order = ($direction === 'up') ? $current_order - 1 : $current_order + 1;
 
-		// Swap order values in the database
-		$wpdb->query("START TRANSACTION");
+	// Swap order values in the database
+	$wpdb->query("START TRANSACTION");
+	$wpdb->update($table_name, array('post_order' => $current_order), array('post_order' => $new_order));
+	$wpdb->update($table_name, array('post_order' => $new_order), array('id' => $id));
+	$wpdb->query("COMMIT");
 
-		$wpdb->update(
-			$table_name,
-			array('post_order' => $rows[$swap_index]->post_order),
-			array('id' => $id)
-		);
-
-		$wpdb->update(
-			$table_name,
-			array('post_order' => $rows[$current_index]->post_order),
-			array('id' => $rows[$swap_index]->id)
-		);
-
-		$wpdb->query("COMMIT");
-
-		wp_send_json_success('Post order updated successfully');
-	} else {
-		wp_send_json_error('Invalid move');
-	}
+	wp_send_json_success('Post order updated successfully');
 }
 add_action('wp_ajax_move_post', 'move_post');
+
+
 // Function for the cron job to update LinkedIn posts
 function linkedin_posts_slider_update_posts()
 {
