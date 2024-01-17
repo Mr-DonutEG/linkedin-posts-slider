@@ -307,6 +307,16 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
    */
   protected function _content_template()
   {
+    // Enqueue SwiperJS styles and scripts
+    wp_enqueue_style('swiper-style');
+    wp_enqueue_script('swiper-script');
+    wp_enqueue_style('linkedin-slider-style');
+
+    // Get custom CSS from widget settings and apply it
+    $settings = $this->get_settings_for_display();
+    if (!empty($settings['custom_css_code'])) {
+      $this->add_inline_style($settings['custom_css_code']);
+    }
   ?>
     <div class="swiper">
       <div class="swiper-wrapper">
