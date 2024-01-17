@@ -154,10 +154,10 @@ function move_post()
 	$table_name = $wpdb->prefix . 'lps_synced_posts';
 
 	// Check for nonce for security
-	if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'move_post_nonce')) {
-		wp_send_json_error('Nonce verification failed');
+	//if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'move_post_nonce')) {
+	//	wp_send_json_error('Nonce verification failed');
 		return;
-	}
+	//}
 
 	// Check if necessary data is set in the AJAX request
 	if (!isset($_POST['id']) || !isset($_POST['direction'])) {

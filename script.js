@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
                 action: 'move_post',
                 id: id,
                 direction: action,
-                nonce: my_ajax_object.move_post_nonce // Add nonce for security
+                //nonce: my_ajax_object.move_post_nonce // Add nonce for security
             },
             success: (response) => {
                 if (response.success) {
