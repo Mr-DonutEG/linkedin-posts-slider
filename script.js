@@ -12,7 +12,8 @@ jQuery(document).ready(function ($) {
             data: {
                 action: 'publish_unpublish',
                 id: id,
-                published: published
+                published: published,
+                nonce: my_ajax_object.publish_unpublish_nonce // Added nonce for security
             },
             success: (response) => {
                 if (response.success) {
@@ -39,7 +40,8 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             data: {
                 action: 'delete_post',
-                id: postId
+                id: postId,
+                nonce: my_ajax_object.delete_post_nonce // Added nonce for security
             },
             success: (response) => {
                 if (response.success) {
@@ -53,6 +55,7 @@ jQuery(document).ready(function ($) {
             }
         });
     }
+
 
     function handleFormSubmit(e) {
         e.preventDefault();

@@ -8,7 +8,7 @@
 function linkedin_posts_slider_admin_table_page()
 {
   global $wpdb;
-  $table_name = $wpdb->prefix . 'linkedin_posts';
+  $table_name = $wpdb->prefix . 'lps_synced_posts';
 
   // Fetch all rows
   $rows = $wpdb->get_results("SELECT * FROM $table_name ORDER BY post_order ASC");

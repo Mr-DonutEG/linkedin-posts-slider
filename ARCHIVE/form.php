@@ -9,7 +9,7 @@ if (function_exists('settings_errors')) {
 $last_update = get_option('linkedin_scrapper_last_update', '');
 $status = get_option('linkedin_scrapper_status', '');
 
-// Assume these variables are calculated correctly from the 'linkedin_posts' table.
+// Assume these variables are calculated correctly from the 'lps_synced_posts' table.
 $total_posts = get_option('linkedin_total_posts_count', 0);
 $synced_posts = get_option('linkedin_synced_posts_count', 0);
 

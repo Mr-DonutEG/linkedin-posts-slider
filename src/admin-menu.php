@@ -6,14 +6,6 @@ if (!defined('ABSPATH')) {
 
 function linkedin_posts_slider_add_admin_menu()
 {
-    add_menu_page(
-        'Linkedin Slider Style Settings', // page title
-        'Linkedin Slider Settings', // menu title
-        'manage_options', // capability
-        'linkedin_posts_slider', // menu slug
-        'linkedin_posts_slider_options_page', // function to output the page content
-        'dashicons-linkedin'
-    );
 
     add_submenu_page(
         'linkedin_posts_slider', // parent slug

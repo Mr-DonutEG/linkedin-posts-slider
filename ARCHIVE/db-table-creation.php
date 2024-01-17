@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 function linkedin_posts_slider_create_table()
 {
   global $wpdb;
-  $table_name = $wpdb->prefix . 'linkedin_posts';
+  $table_name = $wpdb->prefix . 'lps_synced_posts';
   $charset_collate = $wpdb->get_charset_collate();
 
   // Create table SQL
@@ -75,11 +75,11 @@ function linkedin_posts_slider_create_table()
           "age": "3mo •",
           "copy": "Just completed the installation of two femtosecond laser tube cutting workstations paired with bar feeders and custom Alpine automated part extractors enabling this customer to run catheter shaft production lights out.\n\nContact the team at Alpine Laser today to see how we can help you transform your laser cutting operation.\n\nsales@alpinelaser.com",
           "images": [
-            "https://media.licdn.com/dms/image/D5622AQE0uiOv1X59Og/feedshare-shrink_800/0/1689108312570?e=1700697600&v=beta&t=eJ1Ntg5tN2cqRJ--r5sJcHbaLCGW60wGlbWvl5OAZH8",
-            "https://media.licdn.com/dms/image/D5622AQEDvNoAXKgCkA/feedshare-shrink_800/0/1689108308231?e=1700697600&v=beta&t=1soEvuOe2pQNSHGwxWPl5jPdBttmoM3T8rQm_Myxkss",
-            "https://media.licdn.com/dms/image/D5622AQGuLM3G0lYTmQ/feedshare-shrink_800/0/1689108310054?e=1700697600&v=beta&t=KBIg0S6fPTpsgfDzvY5jx5mWh6EEU4AoLCQPG7y_n0Q",
-            "https://media.licdn.com/dms/image/D5622AQEs3FWPkEZ4fg/feedshare-shrink_800/0/1689108313262?e=1700697600&v=beta&t=HoJuuTrLQWy4iZXrvMVoIv1wBgPUN1nYBk34XYSGUjA",
-            "https://media.licdn.com/dms/image/D5622AQGwIi2isOxGuQ/feedshare-shrink_800/0/1689108311592?e=1700697600&v=beta&t=WvJ4ZE6Lk0KpjnWv-9iAs8Ix8aRAA9DYHr3SC3zdnhY"
+            "https://media.licdn.com/dms/image/D5622AiOX59Og",
+            "https://media.licdn.com/dms/image/D5622AXKgCkA",
+            "https://media.licdn.com/dms/image/D56223G0lYTmQ",
+            "https://media.licdn.com/dms/image/D56FWPkEZ4fg",
+            "https://media.licdn.com/dms/image/D5622sOxGuQ"
           ],
           "reactions": "108",
           "comments": "5 comments"
@@ -93,10 +93,10 @@ function linkedin_posts_slider_create_table()
           "age": "3mo •",
           "copy": "Need cuts with no heat affected zone and very clean edges? Take a look at these sample parts cut with the Alpine Laser Medicut Pro workstation utilizing a top of the line ultra short pulse femtosecond laser from TRUMPF.",
           "images": [
-            "https://media.licdn.com/dms/image/D4D22AQGqLOmYU5zQJQ/feedshare-shrink_800/0/1689258424335?e=1700697600&v=beta&t=uP8Ie76uxvmOw9ahFB3slq595VwceCZnTBhObQLgGkM",
-            "https://media.licdn.com/dms/image/D4D22AQFjeXMtn0ZgcQ/feedshare-shrink_800/0/1689258424269?e=1700697600&v=beta&t=v7XNtnlThPCVqQm4mYP_-0eKuWfLRkqwBQUMbXuzlxw",
-            "https://media.licdn.com/dms/image/D4D22AQECZgYGzGDO6g/feedshare-shrink_800/0/1689258424307?e=1700697600&v=beta&t=uWSERibQHlagEnUZjWzktamM9FH97kBC3qjwN82N9Rw",
-            "https://media.licdn.com/dms/image/D4D22AQEMYp-_RwB6hA/feedshare-shrink_800/0/1689258424267?e=1700697600&v=beta&t=2m71oyvQM6TdvYzUCyAHTVZ15j08UB2X58FNfi2TVSE"
+            "https://media.licdn.com/dms/image/D4D22AYU5zQJQ/",
+            "https://media.licdn.com/dms/image/D4D22AQFMtn0ZgcQ",
+            "https://media.licdn.com/dms/image/D4D22AQGzGDO6g",
+            "https://media.licdn.com/dms/image/D4D22AQEMRwB6hA"
           ],
           "reactions": "120",
           "comments": "6 comments"
@@ -110,10 +110,10 @@ function linkedin_posts_slider_create_table()
           "age": "9mo •",
           "copy": "* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management\n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com",
           "images": [
-            "https://media.licdn.com/dms/image/C5622AQG3G4m1HdBRTQ/feedshare-shrink_800/0/1674590456558?e=1700697600&v=beta&t=k5YtvgDRkv5WaSn1dHoYUCeUv0cTuOOxRMGtQvZXWSg",
-            "https://media.licdn.com/dms/image/C5622AQHltS4_M21yfQ/feedshare-shrink_800/0/1674590456620?e=1700697600&v=beta&t=XjGMMnhIUNUcXz6xMwiUb-T9Aq1608FNLQ-_XARboyk",
-            "https://media.licdn.com/dms/image/C5622AQGKlqfHEc9TVA/feedshare-shrink_800/0/1674590456761?e=1700697600&v=beta&t=sBYFSRv1aWvisfv-sTsyx5wantSgUJ5FkvQoKwwuFzc",
-            "https://media.licdn.com/dms/image/C5622AQEw2Fhe4KSHUA/feedshare-shrink_800/0/1674590456630?e=1700697600&v=beta&t=YyVctzHbooMWL4sntKLUFTcQSAWjYtQ_PZz0VqSUbU8"
+            "https://media.licdn.com/dms/image/C5622AQGdBRTQ/",
+            "https://media.licdn.com/dms/image/C5622AQHl21yfQ/",
+            "https://media.licdn.com/dms/image/C5622AQGc9TVA/",
+            "https://media.licdn.com/dms/image/C5622AQEw2Fhe4K"
           ],
       
           "reactions": "28",
@@ -128,10 +128,10 @@ function linkedin_posts_slider_create_table()
           "age": "10mo •",
           "copy": "* Workstation Spotlight * \n\n Our team shipped and installed this 4-axis Fiber Laser Tube Cutter just before Christmas! \n\n This workstation is configured with... \n\n - Programmable 4-axis motion control \n\n - Complete Quick Change Tooling and Class 1 Cutting Enclosure \n\n - Integrated Closed loop wet cut system \n\n - Compact footprint with side access E-box",
           "images": [
-            "https://media.licdn.com/dms/image/C5622AQHvYERDghz__Q/feedshare-shrink_800/0/1672680058000?e=1700697600&v=beta&t=KoWwS3CnANMtkSZ06pxmG2s65N7xpsNiBCnJWcAVMZU",
-            "https://media.licdn.com/dms/image/C5622AQGWbi5H_tF4dg/feedshare-shrink_800/0/1672680057456?e=1700697600&v=beta&t=slCQsGtSrTuAqbVmCIc8sVdbBjIjH07isIh_sm1wJhU",
-            "https://media.licdn.com/dms/image/C5622AQFZhAkBS2MxdA/feedshare-shrink_800/0/1672680058001?e=1700697600&v=beta&t=ot7tquGj7lteSX-Jr4M15CQIi9v-2UtxrTTVIKNKzVg",
-            "https://media.licdn.com/dms/image/C5622AQE27JYCc571qg/feedshare-shrink_800/0/1672680055708?e=1700697600&v=beta&t=mG6FcHD0oxRtzD823l9eBITM5XtVhyL1UpzhdrVfB0g"
+            "https://media.licdn.com/dms/image/C5622AQHvYERDghz__Q/",
+            "https://media.licdn.com/dms/image/C5622AQGWbi5H_tF4dg/",
+            "https://media.licdn.com/dms/image/C5622AQFZhAkBS2MxdA/",
+            "https://media.licdn.com/dms/image/C5622AQE27JYCc571qg/"
           ],
       
           "reactions": "24",
@@ -146,7 +146,7 @@ function linkedin_posts_slider_create_table()
           "age": "2mo •",
           "copy": "Laser cutting catheter shafts allows for continuously variable bending stiffness, torsion, and compression to open up a new realm of possibilities for medical device design engineers.\n\nShown below is a 0.027\" OD 0.0025\" wall (0.686mm OD .064mm wall) microcatheter shaft cut on the Medicut Pro Fiber Laser.\n\nContact us at sales@alpinelaser.com for more info.\n\nThank you TRUMPF for the photo.",
           "images": [
-            "https://media.licdn.com/dms/image/D5622AQElkuOrteJbWg/feedshare-shrink_800/0/1691003603850?e=1700697600&v=beta&t=zKadIpnMKGNDT1FflkoCtSLu6e_ZCMRSFWNR5U2vPC0"
+            "https://media.licdn.com/dms/image/D5622AQElkuOrteJbWg/feedshare-shrink_800"
           ],
       
           "reactions": "30",
@@ -202,26 +202,6 @@ function linkedin_posts_slider_activate()
 {
   // Define default settings
   $default_settings = array(
-    'section-company-color' => '#454545',
-    'section-company-font-size' => '16',
-    'section-company-font-family' => 'Titillium Web',
-    'section-company-line-height' => '18',
-    'section-company-font-weight' => '400',
-    'section-author-date-color' => '#454545',
-    'section-author-date-font-size' => '14',
-    'section-author-date-font-family' => 'Titillium Web',
-    'section-author-date-font-weight' => '300',
-    'section-author-date-line-height' => '18',
-    'section-body-color' => '#adb5bd',
-    'section-body-font-size' => '16',
-    'section-body-font-family' => 'Titillium Web',
-    'section-body-webkit-line-clamp' => '5',
-    'section-body-font-weight' => ' ',
-    'section-interactions-color' => '#454545',
-    'section-interactions-font-size' => '14',
-    'section-interactions-font-family' => 'Titillium Web',
-    'section-interactions-font-weight' => '300',
-    'section-interactions-line-height' => '18',
     'linkedin_company_url' => 'https://www.linkedin.com/company/alpine-laser/',
     'linkedin_slider_open_link' => '1',
     'linkedin_update_frequency' => '86400', // 24 hours in seconds
@@ -229,14 +209,27 @@ function linkedin_posts_slider_activate()
     'linkedin_scrapper_last_update' => 'Not available',
     'linkedin_scrapper_endpoint' => 'https://scrape-js.onrender.com/scrape',
     'linkedin_scrapper_full_post_selector' => 'li[class="mb-1"]',
-    'linkedin_scrapper_full_selectors_array' => '[\'li[class="mb-1"] article\',"a[data-tracking-control-name=\'organization_guest_main-feed-card_feed-actor-name\']",\'time\',\'a[data-id="social-actions_reactions"]\',\'a[data-id="social-actions_comments"]\']',
+    'linkedin_scrapper_full_selectors_array' => [
+      'li[class="mb-1"] article',
+      "a[data-tracking-control-name='organization_guest_main-feed-card_feed-actor-name']",
+      'time',
+      'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-reactions"]',
+      'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-comments"]'
+    ],
     'linkedin_scrapper_full_attributes_array' => '["data-activity-urn","innerText","innerText","innerText","innerText"]',
-    'linkedin_scrapper_full_names_array' => '["URN","company_name","age","reactions" ,"comments"]',
+    'linkedin_scrapper_full_names_array' => '["URN","author","age","reactions" ,"comments"]',
     'linkedin_scrapper_single_post_selector' => 'section[class="mb-3"]',
-    'linkedin_scrapper_single_selectors_array' => '[\'section[class="mb-3"] article\',\'time\',\'a[data-tracking-control-name="public_post_feed-actor-image"] img\',\'p[data-test-id="main-feed-activity-card_commentary"]\',\'span[data-test-id="social-actionsreaction-count"]\',\'a[data-test-id="social-actions_comments"]\',\'ul[data-test-id="feed-images-content"] img\']',
+    'linkedin_scrapper_single_selectors_array' => [
+      'section[class="mb-3"] article',
+      'time',
+      'a[data-tracking-control-name="public_post_feed-actor-image"] img',
+      'p[data-test-id="main-feed-activity-card_commentary"]',
+      'span[data-test-id="social-actionsreaction-count"]',
+      'a[data-test-id="social-actions_comments"]',
+      'ul[data-test-id="feed-images-content"] img'
+    ],
     'linkedin_scrapper_single_attributes_array' => '["data-attributed-urn","innerText","src","innerText","innerText","innerText","src"]',
-    'linkedin_scrapper_single_names_array' => '["URN","age","profilePicture","copy","reactions" ,"comments","images"]'
-    // Add other settings as needed
+    'linkedin_scrapper_single_names_array' => '["URN","age","profilePicture","copy","reactions" ,"comments","images"]' // Add other settings as needed
   );
 
   // Add or update default settings in WordPress options

@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 function sync_linkedin_posts()
 {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'linkedin_posts';
+    $table_name = $wpdb->prefix . 'lps_synced_posts';
 
     // Fetch all rows that are not synced
     $rows = $wpdb->get_results("SELECT * FROM $table_name WHERE synced = 0");

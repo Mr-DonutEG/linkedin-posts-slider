@@ -1,33 +1,119 @@
-/* Place this in linkedin-posts-slider-admin.css */
 
+/* General Admin Page Styling */
+.wrap {
+    font-family: Arial, sans-serif;
+}
+
+/* Stats Section Styling */
 .stats-wrapper {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
-    padding: 10px;
-    background: #f1f1f1;
-    border: 1px solid #ccc;
+    padding: 20px;
+    background: #f9f9f9;
+    /* Lighter background for a modern look */
+    border: 1px solid #ddd;
+    /* Softer border color */
     border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
 }
 
 .stat-card {
     text-align: center;
+    min-width: 150px;
+    /* Ensure uniform width */
 }
 
 .stat-title {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #333;
+    /* Darker text for better readability */
+}
+
+.stat-value {
+    font-size: 1.2em;
+    /* Larger font size for emphasis */
+    color: #555;
+    /* Standard color for normal stats */
 }
 
 .stat-value.status-ok {
-    color: green;
-    font-family: monospace;
+    color: #4CAF50;
+    /* Softer green for OK status */
     font-weight: bold;
 }
 
 .stat-value.status-error {
-    color: red;
-    font-family: monospace;
+    color: #F44336;
+    /* Softer red for error status */
     font-weight: bold;
 }
+
+/* Form Styling */
+.form-table th {
+    font-weight: normal;
+    /* Less aggressive than bold */
+    color: #555;
+    padding-top: 20px;
+    /* More space above each form field */
+}
+
+.form-table td {
+    padding-top: 20px;
+}
+
+.form-table input[type="text"],
+.form-table input[type="url"],
+.form-table input[type="email"] {
+    width: 100%;
+    max-width: 400px;
+    /* Limit max width for better readability */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-table .description {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Submit Button Styling */
+.submit .button-primary {
+    background-color: #0073aa;
+    /* Standard WP blue */
+    border-color: #006799;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    box-shadow: none;
+    /* Remove default WP button shadow */
+    text-shadow: none;
+    /* Remove default WP button text shadow */
+}
+
+.submit .button-primary:hover {
+    background-color: #0085ba;
+    /* Slightly lighter blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stats-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-card {
+        margin-bottom: 10px;
+        min-width: auto;
+        /* Allow width to adjust on smaller screens */
+    }
+}
+
+/* Additional Styling as needed */
+/* ... */
