@@ -8,12 +8,12 @@ function linkedin_posts_slider_add_admin_menu()
 {
 
     add_menu_page(
-        'linkedin_posts_slider', // parent slug
         'Linkedin Posts Table', // page title
         'Posts Table', // menu title
         'manage_options', // capability
-        'linkedin_posts_slider_table', // menu slug
-        'linkedin_posts_slider_admin_table_page' // function to output the page content
+        'linkedin_posts_slider', // menu slug
+        'linkedin_posts_slider_admin_table_page', // function to output the page content
+        'dashicons-admin-links', // icon URL (optional)
     );
 
     add_submenu_page(
