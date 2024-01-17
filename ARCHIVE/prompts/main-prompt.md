@@ -137,12 +137,11 @@ register_activation_hook(__FILE__, 'linkedin_posts_slider_activate');
  */```now 
 
  ## Request:
- check the functionality of the reorder buttons, publish/unpublish button and delete button in the posts table page 
+ check the functionality of the reorder buttons in the posts table page as they arent working 
  here is the related code file :
  ### src\table-page.php:
  ```
-
- <?php
+<?php
 
 /**
  * Display the admin table page for managing LinkedIn posts.
@@ -201,13 +200,10 @@ function linkedin_posts_slider_admin_table_page()
             <td><?php echo wp_trim_words(esc_html($row->copy), 10, '...'); ?></td>
             <td>
               <div class="action-buttons">
-                <form method="post" style="display:inline;">
-                  <?php //wp_nonce_field('linkedin_delete_action', 'linkedin_delete_nonce');
-                  ?>
-                  <input type="hidden" name="id" value="<?php echo esc_attr($row->id); ?>">
-                  <input type="submit" value="Delete" class="delete-button" data-id="<?php echo esc_attr($row->id); ?>">
-                </form>
+                <!-- Remove the form and directly use a button for delete -->
+                <button type="button" class="delete-button" data-id="<?php echo esc_attr($row->id); ?>">Delete</button>
 
+                <!-- Publish/Unpublish Button -->
                 <button class="publish-button" data-id="<?php echo esc_attr($row->id); ?>" data-published="<?php echo esc_attr($row->published); ?>">
                   <?php echo $row->published ? 'Published' : 'Unpublished'; ?>
                 </button>
@@ -247,7 +243,8 @@ function linkedin_posts_slider_admin_table_page()
 
  ### script.js:
  ```
- jQuery(document).ready(function ($) {
+ 
+jQuery(document).ready(function ($) {
 
     function handlePublishUnpublish(buttonElement) {
         let button = $(buttonElement);
@@ -294,39 +291,13 @@ function linkedin_posts_slider_admin_table_page()
             },
             success: (response) => {
                 if (response.success) {
-                    $('#post-' + postId).remove();
+                    button.closest('tr').remove(); // Update the selector to remove the row
                 } else {
                     console.error('Error:', response);
                 }
             },
             error: (jqXHR, textStatus, errorThrown) => {
                 console.error('Error:', textStatus, errorThrown);
-            }
-        });
-    }
-
-
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        let form = $(this).closest('form');
-        let button = $(this);
-        button.val('...').addClass('loading');
-
-        $.ajax({
-            url: my_ajax_object.ajax_url,
-            type: 'POST',
-            data: form.serialize(),
-            success: (response) => {
-                if (response.success) {
-                    button.val('Delete').removeClass('loading');
-                    form.closest('tr').remove();
-                } else {
-                    console.error('Error:', response);
-                }
-            },
-            error: (jqXHR, textStatus, errorThrown) => {
-                console.error('Error:', textStatus, errorThrown);
-                button.val('Delete').removeClass('loading');
             }
         });
     }
@@ -334,18 +305,20 @@ function linkedin_posts_slider_admin_table_page()
     function handleUpDownButtonClick() {
         let button = $(this);
         let id = button.closest('tr').find('.row-id').text();
-        let action = button.hasClass('up-button') ? 'move_up' : 'move_down';
+        let action = button.hasClass('up-button') ? 'up' : 'down';
 
         $.ajax({
             url: my_ajax_object.ajax_url,
             type: 'POST',
             data: {
-                action: action,
+                action: 'move_post',
                 id: id,
+                direction: action,
+                //nonce: my_ajax_object.move_post_nonce // Add nonce for security
             },
             success: (response) => {
                 if (response.success) {
-                    location.reload();
+                    location.reload(); // Consider a more efficient way to update the order without reloading
                 } else {
                     console.error('Error:', response);
                 }
@@ -356,14 +329,15 @@ function linkedin_posts_slider_admin_table_page()
         });
     }
 
+    // Event binding for the delete button
     $('.delete-button').on('click', handleDeleteButton);
 
-    $('form input[type=submit]').on('click', handleFormSubmit);
-
+    // Event binding for the publish/unpublish button
     $('.publish-button').on('click', function () {
         handlePublishUnpublish(this);
     });
 
+    // Toggle button text on hover for publish/unpublish button
     $('.publish-button').hover(function () {
         let button = $(this);
         let published = button.data("published");
@@ -382,8 +356,10 @@ function linkedin_posts_slider_admin_table_page()
         }
     });
 
+    // Event binding for the up/down reorder buttons
     $('.up-button, .down-button').on('click', handleUpDownButtonClick);
 });
+
  ```
 
  ### src\ajax-actions.php:
@@ -538,6 +514,44 @@ function delete_post()
 }
 add_action('wp_ajax_delete_post', 'delete_post');
 
+function move_post()
+{
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'lps_synced_posts';
+
+	// Check for nonce for security
+	//if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'move_post_nonce')) {
+	//	wp_send_json_error('Nonce verification failed');
+		return;
+	//}
+
+	// Check if necessary data is set in the AJAX request
+	if (!isset($_POST['id']) || !isset($_POST['direction'])) {
+		wp_send_json_error('No data received');
+		return;
+	}
+
+	// Sanitize and validate the data
+	$id = intval($_POST['id']);
+	$direction = sanitize_text_field($_POST['direction']);
+
+	// Fetch current post_order and IDs
+	$rows = $wpdb->get_results("SELECT id, post_order FROM $table_name ORDER BY post_order ASC", ARRAY_A);
+	$order_map = wp_list_pluck($rows, 'post_order', 'id');
+	$current_order = $order_map[$id];
+
+	// Determine new order
+	$new_order = ($direction === 'up') ? $current_order - 1 : $current_order + 1;
+
+	// Swap order values in the database
+	$wpdb->query("START TRANSACTION");
+	$wpdb->update($table_name, array('post_order' => $current_order), array('post_order' => $new_order));
+	$wpdb->update($table_name, array('post_order' => $new_order), array('id' => $id));
+	$wpdb->query("COMMIT");
+
+	wp_send_json_success('Post order updated successfully');
+}
+add_action('wp_ajax_move_post', 'move_post');
 
 
 // Function for the cron job to update LinkedIn posts
