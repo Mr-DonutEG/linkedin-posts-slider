@@ -25,6 +25,11 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
     wp_register_script('swiper-script', plugins_url('../public/swiperjs/swiper-bundle.js', __FILE__), ['jquery'], false, true);
 
     wp_register_style('linkedin-slider-style', plugins_url('../public/styles.css', __FILE__));
+    // Localize the script with the AJAX URL
+    wp_localize_script('swiper-script', 'ajax_object', array(
+      'ajax_url' => admin_url('admin-ajax.php'),
+      // You can add more data here if needed
+    ));
    
   }
 
