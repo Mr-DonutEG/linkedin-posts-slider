@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 function linkedin_posts_slider_add_admin_menu()
 {
 
-    add_submenu_page(
+    add_menu_page(
         'linkedin_posts_slider', // parent slug
         'Linkedin Posts Table', // page title
         'Posts Table', // menu title
