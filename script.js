@@ -1,3 +1,4 @@
+
 jQuery(document).ready(function ($) {
 
     function handlePublishUnpublish(buttonElement) {
@@ -45,39 +46,13 @@ jQuery(document).ready(function ($) {
             },
             success: (response) => {
                 if (response.success) {
-                    $('#post-' + postId).remove();
+                    button.closest('tr').remove(); // Update the selector to remove the row
                 } else {
                     console.error('Error:', response);
                 }
             },
             error: (jqXHR, textStatus, errorThrown) => {
                 console.error('Error:', textStatus, errorThrown);
-            }
-        });
-    }
-
-
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        let form = $(this).closest('form');
-        let button = $(this);
-        button.val('...').addClass('loading');
-
-        $.ajax({
-            url: my_ajax_object.ajax_url,
-            type: 'POST',
-            data: form.serialize(),
-            success: (response) => {
-                if (response.success) {
-                    button.val('Delete').removeClass('loading');
-                    form.closest('tr').remove();
-                } else {
-                    console.error('Error:', response);
-                }
-            },
-            error: (jqXHR, textStatus, errorThrown) => {
-                console.error('Error:', textStatus, errorThrown);
-                button.val('Delete').removeClass('loading');
             }
         });
     }
@@ -85,18 +60,20 @@ jQuery(document).ready(function ($) {
     function handleUpDownButtonClick() {
         let button = $(this);
         let id = button.closest('tr').find('.row-id').text();
-        let action = button.hasClass('up-button') ? 'move_up' : 'move_down';
+        let action = button.hasClass('up-button') ? 'up' : 'down';
 
         $.ajax({
             url: my_ajax_object.ajax_url,
             type: 'POST',
             data: {
-                action: action,
+                action: 'move_post',
                 id: id,
+                direction: action,
+                nonce: my_ajax_object.move_post_nonce // Add nonce for security
             },
             success: (response) => {
                 if (response.success) {
-                    location.reload();
+                    location.reload(); // Consider a more efficient way to update the order without reloading
                 } else {
                     console.error('Error:', response);
                 }
@@ -107,14 +84,15 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    // Event binding for the delete button
     $('.delete-button').on('click', handleDeleteButton);
 
-    $('form input[type=submit]').on('click', handleFormSubmit);
-
+    // Event binding for the publish/unpublish button
     $('.publish-button').on('click', function () {
         handlePublishUnpublish(this);
     });
 
+    // Toggle button text on hover for publish/unpublish button
     $('.publish-button').hover(function () {
         let button = $(this);
         let published = button.data("published");
@@ -133,5 +111,6 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    // Event binding for the up/down reorder buttons
     $('.up-button, .down-button').on('click', handleUpDownButtonClick);
 });

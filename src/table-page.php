@@ -57,13 +57,10 @@ function linkedin_posts_slider_admin_table_page()
             <td><?php echo wp_trim_words(esc_html($row->copy), 10, '...'); ?></td>
             <td>
               <div class="action-buttons">
-                <form method="post" style="display:inline;">
-                  <?php //wp_nonce_field('linkedin_delete_action', 'linkedin_delete_nonce');
-                  ?>
-                  <input type="hidden" name="id" value="<?php echo esc_attr($row->id); ?>">
-                  <input type="submit" value="Delete" class="delete-button" data-id="<?php echo esc_attr($row->id); ?>">
-                </form>
+                <!-- Remove the form and directly use a button for delete -->
+                <button type="button" class="delete-button" data-id="<?php echo esc_attr($row->id); ?>">Delete</button>
 
+                <!-- Publish/Unpublish Button -->
                 <button class="publish-button" data-id="<?php echo esc_attr($row->id); ?>" data-published="<?php echo esc_attr($row->published); ?>">
                   <?php echo $row->published ? 'Published' : 'Unpublished'; ?>
                 </button>
