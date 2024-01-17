@@ -28,7 +28,7 @@ function enqueue_custom_scripts_and_styles()
 add_action('admin_enqueue_scripts', 'enqueue_custom_scripts_and_styles');
 
 // Include the new files
-require_once plugin_dir_path(__FILE__) . 'src/slider-widget.php';
+//require_once plugin_dir_path(__FILE__) . 'src/slider-widget.php';
 //require_once plugin_dir_path(__FILE__) . 'src/options-page.php';
 require_once plugin_dir_path(__FILE__) . 'src/scrapper-options-page.php';
 require_once plugin_dir_path(__FILE__) . 'src/activation-deactivation.php';
