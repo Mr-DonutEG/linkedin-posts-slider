@@ -291,32 +291,36 @@ function linkedin_posts_slider_activate()
   }
 
   // Step 2: Create and set default scrapper settings
-  $default_settings =
-    array(
-      'linkedin_company_url' => 'https://www.linkedin.com/company/alpine-laser/',
-      'linkedin_scrapper_status' => 'OK',
-      'linkedin_scrapper_last_update' => 'Not available',
-      'linkedin_scrapper_endpoint' => 'https://scrape-js.onrender.com/scrape',
-      'linkedin_scrapper_full_post_selector' => 'li.mb-1',
-      'linkedin_scrapper_full_selectors_array' => [
-        'article[data-activity-urn]',
-        'article[data-activity-urn]',
-        'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-image"] img',
-        'time',
-        'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-name"]',
-        'p[data-test-id="main-feed-activity-card__commentary"]',
-        'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-reactions"]',
-        'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-comments"]',
-        'ul[data-test-id="feed-images-content"] img'
-      ],
-      'linkedin_scrapper_full_attributes_array' => '["data-activity-urn", "src", "innerText", "innerText", "innerText", "innerText", "innerText", "src"]',
-      'linkedin_scrapper_full_names_array' => '["URN", "profilePicture", "age", "author", "copy", "reactions", "comments", "images"]'
-      // Add other settings as needed
-    );
-  foreach ($default_settings as $setting_name => $default_value) {
-    if (false === get_option($setting_name)) {
-      add_option($setting_name, $default_value);
-    }
+  $default_settings = array(
+    'linkedin_company_url' => 'https://www.linkedin.com/company/alpine-laser/',
+    'linkedin_scrapper_status' => 'OK',
+    'linkedin_scrapper_last_update' => 'Not available',
+    'linkedin_scrapper_endpoint' => 'https://scrape-js.onrender.com/scrape',
+    'linkedin_scrapper_full_post_selector' => 'li.mb-1',
+    'linkedin_scrapper_full_selectors_array' => [
+      'article[data-activity-urn]',
+      'article[data-activity-urn]',
+      'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-image"] img',
+      'time',
+      'a[data-tracking-control-name="organization_guest_main-feed-card_feed-actor-name"]',
+      'p[data-test-id="main-feed-activity-card__commentary"]',
+      'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-reactions"]',
+      'a[data-tracking-control-name="organization_guest_main-feed-card_social-actions-comments"]',
+      'ul[data-test-id="feed-images-content"] img'
+    ],
+    'linkedin_scrapper_full_attributes_array' => '["data-activity-urn", "src", "innerText", "innerText", "innerText", "innerText", "innerText", "src"]',
+    'linkedin_scrapper_full_names_array' => '["URN", "profilePicture", "age", "author", "copy", "reactions", "comments", "images"]'
+  );
+
+  // Serialize the default settings array
+  $serialized_settings = maybe_serialize($default_settings);
+
+  // Check if the 'lps_scrapper_settings' option exists and is not empty
+  if (false === get_option('lps_scrapper_settings') || empty(get_option('lps_scrapper_settings'))) {
+    add_option('lps_scrapper_settings', $serialized_settings);
+  } else {
+    // Optional: Update existing settings with new default values if needed
+    // update_option('lps_scrapper_settings', $serialized_settings);
   }
   if (!wp_next_scheduled('linkedin_posts_slider_cron_job')) {
     wp_schedule_event(time(), 'daily', 'linkedin_posts_slider_cron_job');
