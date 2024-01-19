@@ -264,14 +264,20 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
               response.data.forEach(function(post) {
                 // Generate the HTML for each slide
                 var slideContent = '<div class="swiper-slide">' +
-                  '<div class="li-icon-white"> ... </div>' + // Add LinkedIn icon HTML
+                  '<div class="li-icon-white"> <svg style="width: 30px; height: 30px; overflow: visible; fill: rgb(255, 255, 255);" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg> </div>' + // Add LinkedIn icon HTML
                   '<div class="img-container">' + generateImagesHtml(post.images) + '</div>' +
                   '<div class="info-container">' +
                   '<div class="li-author-img" style="background-image: url(\'' + post.profilePicture + '\')"></div>' +
                   '<div class="section-company">' + post.author + '</div>' +
                   '<div class="section-author-date">@' + post.username + ' . ' + post.age + ' ago</div>' +
                   '<p class="section-body">' + post.copy + '</p>' +
-                  '<div class="section-interactions"> ... </div>' + // Add interactions HTML
+                  `<div class="section-interactions"> 
+                  <span><svg style="width: 24px; height: 24px; overflow: visible; fill: rgb(0, 122, 255);" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"></path><path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm5.9 8.3-2.1 4.9c-.22.51-.74.83-1.3.8H9c-1.1 0-2-.9-2-2v-5c-.02-.38.13-.74.4-1L12 5l.69.69c.18.19.29.44.3.7v.2L12.41 10H17c.55 0 1 .45 1 1v.8c.02.17-.02.35-.1.5z" opacity=".3"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path><path d="M17 10h-4.59l.58-3.41v-.2c-.01-.26-.12-.51-.3-.7L12 5l-4.6 5c-.27.26-.42.62-.4 1v5c0 1.1.9 2 2 2h5.5c.56.03 1.08-.29 1.3-.8l2.1-4.9c.08-.15.12-.33.1-.5V11c0-.55-.45-1-1-1z"></path></svg></span>
+                                <span class="li-post-reactions">${post.reactions} . </span>
+                                <span class="li-post-comments">${post.comments}</span>
+                  </div>`
+
+                  + // Add interactions HTML
                   '</div>' +
                   '</div>';
 
@@ -342,7 +348,9 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
 
           <# _.each(posts, function(post) { #>
             <div class="swiper-slide">
-              <div class="li-icon-white"> ... </div>
+              <div class="li-icon-white"> <svg style="width: 30px; height: 30px; overflow: visible; fill: rgb(255, 255, 255);" viewBox="0 0 448 512">
+                  <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path>
+                </svg> </div>
               <div class="img-container">
                 <# _.each(post.images, function(image) { #>
                   <div class="li-img" style="background-image: url('{{ image }}')"></div>
@@ -353,7 +361,15 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
                 <div class="section-company">{{ post.author }}</div>
                 <div class="section-author-date">@{{ post.username }} . {{ post.age }} ago</div>
                 <p class="section-body">{{ post.copy }}</p>
-                <div class="section-interactions">{{ post.reactions }} • {{ post.comments }}</div>
+                <div class="section-interactions"><span><svg style="width: 24px; height: 24px; overflow: visible; fill: rgb(0, 122, 255);" viewBox="0 0 24 24">
+                      <path fill="none" d="M0 0h24v24H0z"></path>
+                      <path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm5.9 8.3-2.1 4.9c-.22.51-.74.83-1.3.8H9c-1.1 0-2-.9-2-2v-5c-.02-.38.13-.74.4-1L12 5l.69.69c.18.19.29.44.3.7v.2L12.41 10H17c.55 0 1 .45 1 1v.8c.02.17-.02.35-.1.5z" opacity=".3"></path>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+                      <path d="M17 10h-4.59l.58-3.41v-.2c-.01-.26-.12-.51-.3-.7L12 5l-4.6 5c-.27.26-.42.62-.4 1v5c0 1.1.9 2 2 2h5.5c.56.03 1.08-.29 1.3-.8l2.1-4.9c.08-.15.12-.33.1-.5V11c0-.55-.45-1-1-1z"></path>
+                    </svg></span>
+                  <span class="li-post-reactions">{{ post.reactions }} • </span>
+                  <span class="li-post-comments">{{ post.comments }}</span>
+                </div>
               </div>
             </div>
             <# }); #>
@@ -367,10 +383,15 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
       jQuery(document).ready(function($) {
         // Initialize Swiper for the editor preview
         var swiper = new Swiper('.swiper', {
+          loop: true,
           effect: 'coverflow',
           coverflowEffect: {
-            rotate: 30,
-            slideShadows: false,
+            rotate: 60,
+            slideShadows: true,
+            depth: 20,
+            modifier: 0.5,
+            scale: 0.85,
+            stretch: 0
           },
           slidesPerView: 1,
           spaceBetween: 10,

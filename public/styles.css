@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Khand', sans-serif;
 }
 
 .swiper-slide {
@@ -166,16 +166,16 @@ button:hover {
 
 .section-company {
   color: #454545;
-  font-size: 16px;
-  font-family: "Titillium Web";
+  font-size: 20px;
+  font-family: 'Khand', sans-serif;
   padding-top: 10px;
   line-height: 18px;
 }
 
 .section-author-date {
   color: #454545;
-  font-size: 14px;
-  font-family: "Titillium Web";
+  font-size: 18px;
+  font-family: 'Khand', sans-serif;
   font-weight: 300;
   padding-top: 10px;
   line-height: 18px;
@@ -185,8 +185,8 @@ button:hover {
 
 .section-body {
   color: #adb5bd;
-  font-size: 16px;
-  font-family: "Titillium Web";
+  font-size: 18px;
+  font-family: 'Khand', sans-serif;
   text-align: center;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -204,8 +204,8 @@ button:hover {
   bottom: 7px;
   color: #454545;
   font-size: 14px;
-  font-family: "Titillium Web";
-  font-weight: 300;
+  font-family: 'Khand', sans-serif;
+  font-weight: 400;
   line-height: 18px;
   display: flex;
   align-items: center;
