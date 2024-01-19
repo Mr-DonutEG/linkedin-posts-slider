@@ -179,3 +179,62 @@
     /* Align text to the left */
   }
 }
+
+/* Table Headers Style Enhancements */
+.custom-table th {
+  color: #e8e8e8;
+  /* Light color for header text */
+}
+
+/* ID Column Style */
+.custom-table .column-id {
+  width: 50px;
+  /* Narrower width for ID column */
+  text-align: center;
+  /* Center align text */
+}
+
+/* Button Alignment and Spacing */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  /* Horizontally align buttons */
+}
+
+.action-buttons button {
+  margin: 0 5px;
+  /* Add space between buttons */
+}
+
+.up-down-wrapper {
+  margin-top: 5px;
+  /* Add some space above the up-down buttons */
+}
+
+/* Vertical Centering of Table Cells */
+.custom-table td {
+  vertical-align: middle;
+  /* Center content vertically */
+}
+
+/* Up Down Button Spacing */
+.up-button,
+.down-button {
+  margin: 2px 0;
+  /* Add gap between up and down buttons */
+}
+
+/* Additional Responsive Table Enhancements */
+@media screen and (max-width: 800px) {
+
+  /* Adjust ID column in responsive view */
+  .custom-table td.column-id {
+    text-align: right;
+    /* Align right to keep consistent with other data */
+  }
+
+  /* Center content in responsive view */
+  .custom-table td {
+    text-align: center;
+  }
+}
