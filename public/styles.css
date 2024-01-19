@@ -4,14 +4,14 @@ body {
 
 .swiper-slide {
   position: relative;
-  border-radius: 30px;
+  border-radius: 5px;
   
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background-color: #ffffff;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  
   height: 100%;
   margin-bottom: 4px;
 }
@@ -89,10 +89,12 @@ button:hover {
 }
 
 .img-container {
+  border-radius: 5px;
   z-index: -1;
   min-height: 350px;
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
 .info-container {
@@ -104,6 +106,7 @@ button:hover {
 }
 
 .li-single-img {
+  border-radius: 5px;
   flex-grow: 1;
   height: 100%;
   width: 100%;
@@ -119,9 +122,11 @@ button:hover {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 5px;
 }
 
 .li-img-three-main {
+  border-radius: 5px;
   flex-grow: 1;
   height: 70%;
   width: 100%;
@@ -135,6 +140,7 @@ button:hover {
   width: 100%;
   display: grid;
   grid-auto-flow: column;
+  gap: 2px;
 }
 
 .li-img-three-sec {
