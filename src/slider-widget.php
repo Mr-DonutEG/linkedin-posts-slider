@@ -216,6 +216,10 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
       jQuery(document).ready(function($) {
         var swiper = new Swiper('.swiper', {
           effect: 'coverflow',
+          coverflowEffect: {
+            rotate: 30,
+            slideShadows: false,
+          },
           slidesPerView: 1,
           spaceBetween: 10,
           navigation: {
