@@ -14,8 +14,7 @@ if (!defined('ABSPATH')) {
  */
 class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
 {
-class Elementor_Test_Widget_2 extends \Elementor\Widget_Base
-{
+
 
   public function get_script_depends()
   {
