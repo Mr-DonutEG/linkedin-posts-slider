@@ -217,11 +217,11 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
         var swiper = new Swiper('.swiper', {
           effect: 'coverflow',
           coverflowEffect: {
-            rotate: 90,
+            rotate: 60,
             slideShadows: true,
-            depth: 50,
+            depth: 40,
             modifier: 1,
-            scale: 0.9,
+            scale: 1,
             stretch: 0
           },
           slidesPerView: 1,
