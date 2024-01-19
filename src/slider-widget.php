@@ -219,9 +219,9 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
           coverflowEffect: {
             rotate: 60,
             slideShadows: true,
-            depth: 40,
-            modifier: 1,
-            scale: 1,
+            depth: 20,
+            modifier: 0.5,
+            scale: 0.85,
             stretch: 0
           },
           slidesPerView: 1,
