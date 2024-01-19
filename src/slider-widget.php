@@ -25,7 +25,7 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
   {
     return ['swiper-style', 'linkedin-slider-style'];
   }
-}
+
   /**
    * Get widget name
    */
