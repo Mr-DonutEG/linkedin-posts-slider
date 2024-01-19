@@ -14,24 +14,19 @@ if (!defined('ABSPATH')) {
  */
 class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
 {
-  /**
-   * Constructor
-   */
-  public function __construct($data = [], $args = null)
+class Elementor_Test_Widget_2 extends \Elementor\Widget_Base
+{
+
+  public function get_script_depends()
   {
-    parent::__construct($data, $args);
-
-    wp_register_style('swiper-style', plugins_url('../public/swiperjs/swiper-bundle.css', __FILE__));
-    wp_register_script('swiper-script', plugins_url('../public/swiperjs/swiper-bundle.js', __FILE__), ['jquery'], false, true);
-
-    wp_register_style('linkedin-slider-style', plugins_url('../public/styles.css', __FILE__));
-    // Localize the script with the AJAX URL
-    wp_localize_script('swiper-script', 'ajax_object', array(
-      'ajax_url' => admin_url('admin-ajax.php'),
-      // You can add more data here if needed
-    ));
+    return ['swiper-script'];
   }
 
+  public function get_style_depends()
+  {
+    return ['swiper-style', 'linkedin-slider-style'];
+  }
+}
   /**
    * Get widget name
    */
@@ -198,9 +193,9 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
   protected function render()
   {
     // Enqueue SwiperJS styles and scripts
-    wp_enqueue_style('swiper-style');
-    wp_enqueue_script('swiper-script');
-    wp_enqueue_style('linkedin-slider-style');
+    //wp_enqueue_style('swiper-style');
+    //wp_enqueue_script('swiper-script');
+    //wp_enqueue_style('linkedin-slider-style');
 
     // Get custom CSS from widget settings and apply it
     $settings = $this->get_settings_for_display();
@@ -308,9 +303,9 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
   protected function _content_template()
   {
     // Enqueue SwiperJS styles and scripts
-    wp_enqueue_style('swiper-style');
+    //wp_enqueue_style('swiper-style');
     //wp_enqueue_script('swiper-script');
-    wp_enqueue_style('linkedin-slider-style');
+    //wp_enqueue_style('linkedin-slider-style');
 
     // Get custom CSS from widget settings and apply it
     //$settings = $this->get_settings_for_display();
@@ -334,7 +329,7 @@ class Elementor_Linkedin_Posts_Slider_Widget extends \Elementor\Widget_Base
             <div class="section-interactions">100 likes • 10 comments</div>
           </div>
         </div>
-        <# var posts=[ { "profilePicture" : "https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA" , "author" : "Alpine Laser" , "username" : "alpine-laser" , "age" : "1mo" , "copy" : "* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com " , "images" : [ "https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY" ], "reactions" : "116" , "comments" : "8 comments" }, { "profilePicture" : "https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA" , "author" : "Alpine Laser" , "username" : "alpine-laser" , "age" : "1mo" , "copy" : "* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com " , "images" : [ "https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY" ], "reactions" : "116" , "comments" : "8 comments" }, { "profilePicture" : "https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA" , "author" : "Alpine Laser" , "username" : "alpine-laser" , "age" : "1mo" , "copy" : "* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com " , "images" : [ "https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY" ], "reactions" : "116" , "comments" : "8 comments" }, { "profilePicture" : "https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA" , "author" : "Alpine Laser" , "username" : "alpine-laser" , "age" : "1mo" , "copy" : "* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com " , "images" : [ "https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY" ], "reactions" : "116" , "comments" : "8 comments" } ]; #>
+        <# var posts=[{ profilePicture: 'https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA' , author: 'Alpine Laser' , username: 'alpine-laser' , age: '1mo' , copy: '* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com ' , images: [ 'https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY' ], reactions: '116' , comments: '8 comments' }, { profilePicture: 'https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA' , author: 'Alpine Laser' , username: 'alpine-laser' , age: '1mo' , copy: '* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com ' , images: [ 'https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY' ], reactions: '116' , comments: '8 comments' }, { profilePicture: 'https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA' , author: 'Alpine Laser' , username: 'alpine-laser' , age: '1mo' , copy: '* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com ' , images: [ 'https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY' ], reactions: '116' , comments: '8 comments' }, { profilePicture: 'https://media.licdn.com/dms/image/D560BAQFaqoyrA4ri6A/company-logo_100_100/0/1691067153061/alpine_laser_logo?e=1706140800&v=beta&t=MnwqT5MFRX2U6DpzGpU7PNhCRnkbTrb7ccnKfbSIluA' , author: 'Alpine Laser' , username: 'alpine-laser' , age: '1mo' , copy: '* Femtosecond Workstation Spotlight *\n\n- Extremely compact integration of an Ultra-Short Pulse, Femtosecond laser source\n- Hollow Core Fiber Delivery with Active Beam Management \n- Laser control module and laser head unit mounted within the machine base\n- Available in both programmable 2 and 4 axis configurations\n\nInquire to learn more at sales@alpinelaser.com ' , images: [ 'https://media.licdn.com/dms/image/D5622AQHrz8D5-4lTDw/feedshare-shrink_800/0/1695314437373?e=1700697600&v=beta&t=slwjjR_eHPJPHLveIXf24XLpNRp32hy41phrEB_pMyY' ], reactions: '116' , comments: '8 comments' } ]; #>
 
           <# _.each(posts, function(post) { #>
             <div class="swiper-slide">
