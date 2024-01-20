@@ -2,8 +2,8 @@
 /*
 Plugin Name: Linkedin Posts Slider
 Plugin URI: https://github.com/omarnagy91
-Description: This is a custom plugin that I'm developing.
-Version: 2.0
+Description: This is a custom plugin scrapping linkedin posts from specific company profile and registering an elementor widget to show a slider of the posts.
+Version: 3.0
 Author: Omar Nagy
 Author URI: https://github.com/omarnagy91
 */
