@@ -13,7 +13,7 @@ function linkedin_posts_slider_add_admin_menu()
         'manage_options', // capability
         'linkedin_posts_slider', // menu slug
         'linkedin_posts_slider_admin_table_page', // function to output the page content
-        'dashicons-admin-links', // icon URL (optional)
+        'dashicons-linkedin', // icon URL (optional)
     );
 
     add_submenu_page(
