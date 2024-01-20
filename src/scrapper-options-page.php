@@ -1,8 +1,4 @@
 <?php
-/*
-Plugin Name: LinkedIn Posts Slider
-Description: A WordPress plugin to display LinkedIn posts in a slider with admin options.
-*/
 
 // Check if accessed directly and exit
 if (!defined('ABSPATH')) {
@@ -185,6 +181,4 @@ function linkedin_posts_scrapper_options_page()
 	</div>
 <?php
 }
-
-
 ?>

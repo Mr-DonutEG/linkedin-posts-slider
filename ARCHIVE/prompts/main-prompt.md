@@ -1,4 +1,4 @@
-## Context :
+## Context : 
 for a wordpress plugin called linkedin posts slider that registers an elementor widget of a posts slider showing linkedin posts of certain company profile and getting this data from an endpoint that is managed alongside the request data and the update intervals using the scrapper settings page in our admin options page and gives the admin the ability to reorder, publish/unpublish and delete posts from a page showing a table of synced posts, the posts are stored in a custom table called `lps_synced_posts`
 ### file structure:
 - `linkedin-posts-slider.php`: the main file of the plugin

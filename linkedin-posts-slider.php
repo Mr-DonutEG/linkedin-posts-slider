@@ -41,7 +41,6 @@ require_once plugin_dir_path(__FILE__) . 'src/table-page.php';
 linkedin_posts_slider_set_activation_hook(__FILE__);
 linkedin_posts_slider_set_deactivation_hook(__FILE__);
 
-
 function move_row()
 {
   global $wpdb;
@@ -101,4 +100,4 @@ add_action('wp_ajax_move_up', 'move_row');
 add_action('wp_ajax_move_down', 'move_row');
 
 //register_activation_hook(__FILE__, 'linkedin_posts_slider_create_table');
-register_activation_hook(__FILE__, 'linkedin_posts_slider_activate');
+//register_activation_hook(__FILE__, 'linkedin_posts_slider_activate');
